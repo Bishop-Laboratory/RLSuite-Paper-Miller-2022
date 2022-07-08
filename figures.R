@@ -13,8 +13,8 @@ list(
 ) -> rlrs
 
 # Rename with proper experimental names
-rlrs$shCTR@metadata$sampleName <- "SHS5Y5 shCTR (DRIP-Seq)"
-rlrs$shSMN@metadata$sampleName <- "SHS5Y5 shSMN (DRIP-Seq)"
+rlrs$shCTR@metadata$sampleName <- "SH-SY5Y shCTR (DRIP-Seq)"
+rlrs$shSMN@metadata$sampleName <- "SH-SY5Y shSMN (DRIP-Seq)"
 
 ## Figure 2: Plot RLFS analysis
 
@@ -56,7 +56,11 @@ plt <- noiseComparisonPlot(rlr) +
             size = 16
         )
     ) +
-    ggplot2::labs(title = title, subtitle = paste0(rlr@metadata$sampleName, " highlighted"), caption = paste0("◇ - User-supplied sample")) 
+    ggplot2::labs(
+        title = title, 
+        subtitle = paste0(rlr@metadata$sampleName, " highlighted"), 
+        caption = paste0("◇ - User-supplied sample")
+    ) 
 
 ggsave(plt, filename = "results/figure_3B.png", height = 6, width = 7.5)
 
@@ -90,13 +94,13 @@ lapply(
 plts$shSMN <- plts$shSMN +
     labs(
         title = NULL,
-        subtitle = "SHS5Y5 shSMN"
+        subtitle = "SH-SY5Y shSMN"
     )
 plts$shCTR <- plts$shCTR +
     labs(
         caption = NULL, 
         title = "Transcript feature enrichment",
-        subtitle = "SHS5Y5 shCTR"
+        subtitle = "SH-SY5Y shCTR"
     )
 plt <- ggpubr::ggarrange(
   plts$shCTR,
@@ -107,8 +111,8 @@ ggsave(plt, filename = "results/figure_4A.png", height = 8, width = 12)
 
 
 # Tx Feature Overlap
-rlrs$shCTR@metadata$sampleName <- "SHS5Y5 shCTR"
-rlrs$shSMN@metadata$sampleName <- "SHS5Y5 shSMN"
+rlrs$shCTR@metadata$sampleName <- "SH-SY5Y shCTR"
+rlrs$shSMN@metadata$sampleName <- "SH-SY5Y shSMN"
 lapply(
   rlrs, function(rlr) {
       plotTxFeatureOverlap(rlr) +
@@ -131,7 +135,7 @@ ggsave(plt, filename = "results/figure_4B.png", height = 4, width = 12)
 
 # Harmonize sample name
 rlr <- rlrs$shCTR
-rlr@metadata$sampleName <- "SHS5Y5 shCTR"
+rlr@metadata$sampleName <- "SH-SY5Y shCTR"
 rownames(rlr@metadata$results@correlationMat)[
     rownames(rlr@metadata$results@correlationMat) == 'SRX2187024'
 ] <- rlr@metadata$sampleName
@@ -146,10 +150,10 @@ dev.off()
 
 
 ## Figure 6: RL Region venn diagram
-rlr@metadata$sampleName <- "SHS5Y5_shCTR"
+rlr@metadata$sampleName <- "SH-SY5Y shCTR"
 png(filename = "results/figure_6.png", height = 6, width = 8, units = "in", res = 300)
 plotRLRegionOverlap(
-    object,
+    rlr,
     fill = c("goldenrod", "skyblue"),
     main.cex = 2,
     cat.cex=1.2,
@@ -160,7 +164,7 @@ plotRLRegionOverlap(
 dev.off()
 
 ## Figure 7: RLSeq report
-rlr@metadata$sampleName <- "SHS5Y5 shCTR"
+rlr@metadata$sampleName <- "SH-SY5Y shCTR"
 report(rlr, reportPath = "results/report.html")
 
 

@@ -57,7 +57,6 @@ plt <- noiseComparisonPlot(rlr) +
         )
     ) +
     ggplot2::labs(
-        title = title, 
         subtitle = paste0(rlr@metadata$sampleName, " highlighted"), 
         caption = paste0("◇ - User-supplied sample")
     ) 
